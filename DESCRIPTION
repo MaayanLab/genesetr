@@ -12,7 +12,7 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports: plyr (>= 1.8.4)
-URL: http://yihui.name/knitr/
-BugReports: https://github.com/yihui/knitr/issues
+URL: http://github.com/alexandrabk/genesetr
+BugReports: http://github.com/alexandrabk/genesetr/issues
 
     
