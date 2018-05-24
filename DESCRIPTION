@@ -1,0 +1,18 @@
+Package: genesetr
+Type: Package
+Title: Manipulate, Test, and Visualize Gene Set Overlaps
+Version: 0.1.0
+Authors@R: person("Alexandra", "Keenan", email = "alexandra.b.keenan@gmail.com",
+  role = c("aut", "cre"))
+Description: Gene set enrichment analysis is integral to functional 
+    interpretation of high-throughput -omics experiments. This package
+    implements enrichment tests, organization of libraries, and visualization
+    of enrichment results.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: plyr (>= 1.8.4)
+URL: http://yihui.name/knitr/
+BugReports: https://github.com/yihui/knitr/issues
+
+    
