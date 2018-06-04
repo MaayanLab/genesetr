@@ -7,11 +7,13 @@ loadGMT = function(filename){
 }
 
 loadMat = function(filename){
-
+return(read.table(filename, header = T, row.names = T,
+  stringsAsFactors=F, quote="", comment.char="", sep="\t"))
 }
 
 loadLongDF = function(filename){
-
+return(read.table(filename, header = T, stringsAsFactors=F,
+  quote="", comment.char="", sep="\t"))
 }
 
 checkLib = function(x){
