@@ -36,8 +36,8 @@ toLongDF = function(x){
 }
 
 toList = function(x){
-  if(isMat(x)||isLongDf(x)){
-    if(isMat(x)){
+  if(genesetr::isMat(x)||genesetr::isLongDF(x)){
+    if(genesetr::isMat(x)){
       x = as.data.frame(x)
       x$gene = rownames(x)
       x = reshape2::melt(x,id.vars = "gene")
@@ -46,7 +46,7 @@ toList = function(x){
     }
     x = plyr::dlply(x,.(set_name),function(sub){return(sub$gene)})
     return(x)
-  }else if(isList(x)){
+  }else if(genesetr::isList(x)){
     warning("Input x is already in list format. Returning x.")
     return(x)
   }else{

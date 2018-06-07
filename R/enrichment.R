@@ -1,30 +1,32 @@
 #' Fast version of Fisher Exact Test
 #'
 #'
-#' Quickly compute FET p-values for n 2x2 contingency tables T = \{t_1,t_2,...,t_n-1,t_n\}, with each t_i of the form:
+#' Quickly compute FET p-values for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+#'
+#' @param a A vector of values where a_{i} corresponds to t_{i}
+#' @param b A vector of values where b_{i} corresponds to t_{i}
+#' @param c A vector of values where c_{i} corresponds to t_{i}
+#' @param d A vector of values where d_{i} corresponds to t_{i}
+#' @return A vector of p-values P={p_{1}, p_{2},...,p_{n-1},p_{n}} where p_i corresponds to the FET result of t_i.
+#' @examples
+#' T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}, with each t_i of the form:
 #'            setAn ¬setA
 #'        setB  a     b | a+b
 #'       ¬setB  c     d | c+d
 #'          ------------|-----
 #'             a+c   b+d| a+b+c+d
 #'
-#' @param a A vector of values where a_i corresponds
-#' @param b A vector of values where b_i corresponds to
-#' @param c A vector of values where c_i corresponds to
-#' @param d A vector of values where d_i corresponds to
-#' @return A vector of p-values P={p_1, p_2,...,p_n-1,p_n} where p_i corresponds to the FET result of t_i.
-#' @examples
 #' Given three contingency tables:
 #'      setA  ¬setA          setA  ¬setA         setB  ¬setB
-#' setB  3     100        setC  a     b        setD  a     b
-#'¬setB  123   500       ¬setC  c     d       ¬setD  c     d
+#' setB  3     100        setC  5     6        setD  20     45
+#'¬setB  123   500       ¬setC  10    100     ¬setD  60     1000
 #'
 #'
 #'
-#' a=c()
-#' b=c()
-#' c=c()
-#' d=c()
+#' a=c(3, 5, 20)
+#' b=c(100, 6, 45)
+#' c=c(123, 10, 60)
+#' d=c(500, 100, 1000)
 #' pvals = fastFET(a,b,c,d)
 fastFET = function(a, b, c, d, alternative = "greater"){
   checkContingTableVals(a,b,c,d)
@@ -82,45 +84,106 @@ for(j in 1:sides){
   return(pval[,1])
 }
 
-#' Odds Ratio
+#' Odds Ratio for Multiple Contigency Tables
 #'
 #'
-#' For a set of n 2x2 contingency tables T = \{t_1,t_2,...,t_n-1,t_n\}, with each contingency table t_i of the form:
+#' Compute odds ratios for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+#'
+#' @param a A vector of values where a_{i} corresponds to t_{i}
+#' @param b A vector of values where b_{i} corresponds to t_{i}
+#' @param c A vector of values where c_{i} corresponds to t_{i}
+#' @param d A vector of values where d_{i} corresponds to t_{i}
+#' @return A vector of odds ratios R={r_{1}, r_{2},...,r_{n-1},r_{n}} where r_i corresponds to the odds ratio of t_i.
+#' @examples
+#' T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}, with each t_i of the form:
 #'            setAn ¬setA
 #'        setB  a     b | a+b
 #'       ¬setB  c     d | c+d
 #'          ------------|-----
 #'             a+c   b+d| a+b+c+d
-#'Computes an odds ratio ri for each ci.
 #'
-#' @param a A vector of numbers a = {a1, a2,...,an-1,an} where a_i corresponds to continency table ti
-#' @param b A vector of numbers b = {b1, b2,...,bn-1,bn} where b_i corresponds to continency table ti
-#' @param c A vector of numbers c = {c1, c2,...,cn-1,cn}where c_i corresponds to continency table ti
-#' @param d A vector of numbers d = {d1, d2,...,dn-1,dn}where d_i corresponds to continency table ti
-#' @return A vector of odds ratios R={r_1, r_2,...,r_n-1,r_n} where r_i corresponds to the FET result of t_i.
-#' @examples
 #' Given three contingency tables:
 #'      setA  ¬setA          setA  ¬setA         setB  ¬setB
-#' setB  3     100        setC  a     b        setD  a     b
-#'¬setB  123   500       ¬setC  c     d       ¬setD  c     d
+#' setB  3     100        setC  5     6        setD  20     45
+#'¬setB  123   500       ¬setC  10    100     ¬setD  60     1000
 #'
 #'
 #'
-#' a=c()
-#' b=c()
-#' c=c()
-#' d=c()
-#' pvals = fastFET(a,b,c,d)
+#' a=c(3, 5, 20)
+#' b=c(100, 6, 45)
+#' c=c(123, 10, 60)
+#' d=c(500, 100, 1000)
+#' or = oddsRatio(a,b,c,d)
 oddsRatio = function(a,b,c,d){
   checkContingTableVals(a,b,c,d)
   return(b*c/a*d)
 }
 
+#' Jaccard Index for Multiple Contigency Tables
+#'
+#'
+#' Compute jaccard index for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+#'
+#' @param a A vector of values where a_{i} corresponds to t_{i}
+#' @param b A vector of values where b_{i} corresponds to t_{i}
+#' @param c A vector of values where c_{i} corresponds to t_{i}
+#' @param d A vector of values where d_{i} corresponds to t_{i}
+#' @return A vector of Jaccard indices j={j_{1}, j_{2},...,j_{n-1},j_{n}} where j_i corresponds to the jaccard index of t_i.
+#' @examples
+#' T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}, with each t_i of the form:
+#'            setAn ¬setA
+#'        setB  a     b | a+b
+#'       ¬setB  c     d | c+d
+#'          ------------|-----
+#'             a+c   b+d| a+b+c+d
+#'
+#' Given three contingency tables:
+#'      setA  ¬setA          setA  ¬setA         setB  ¬setB
+#' setB  3     100        setC  5     6        setD  20     45
+#'¬setB  123   500       ¬setC  10    100     ¬setD  60     1000
+#'
+#'
+#'
+#' a=c(3, 5, 20)
+#' b=c(100, 6, 45)
+#' c=c(123, 10, 60)
+#' d=c(500, 100, 1000)
+#' ji = jaccardInd(a,b,c,d)
 jaccardInd = function(a,b,c,d){
   checkContingTableVals(a,b,c,d)
   j = a/(a+b+c)
 }
 
+#' Jaccard Distance for Multiple Contigency Tables
+#'
+#'
+#' Compute jaccard distance for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+#'
+#' @param a A vector of values where a_{i} corresponds to t_{i}
+#' @param b A vector of values where b_{i} corresponds to t_{i}
+#' @param c A vector of values where c_{i} corresponds to t_{i}
+#' @param d A vector of values where d_{i} corresponds to t_{i}
+#' @return A vector of Jaccard distances j={j_{1}, j_{2},...,j_{n-1},j_{n}} where j_i corresponds to the jaccard distance of t_i.
+#' @examples
+#' T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}, with each t_i of the form:
+#'            setAn ¬setA
+#'        setB  a     b | a+b
+#'       ¬setB  c     d | c+d
+#'          ------------|-----
+#'             a+c   b+d| a+b+c+d
+#'
+#' Given three contingency tables:
+#'      setA  ¬setA          setA  ¬setA         setB  ¬setB
+#' setB  3     100        setC  5     6        setD  20     45
+#'¬setB  123   500       ¬setC  10    100     ¬setD  60     1000
+#'
+#'
+#'
+#' a=c(3, 5, 20)
+#' b=c(100, 6, 45)
+#' c=c(123, 10, 60)
+#' d=c(500, 100, 1000)
+#' jd = jaccardDist(a,b,c,d)
 jaccardDist = function(a,b,c,d){
   return(1-jaccardInd(a,b,c,d))
 }

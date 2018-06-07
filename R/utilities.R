@@ -14,3 +14,7 @@ read.ttsv = function(file, header=TRUE, sep="\t", ...) {
   out = read.csv(text=x, sep=sep, header=header, ...)
   return(out)
 }
+
+removeFactors = function(df){
+
+}

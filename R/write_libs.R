@@ -13,7 +13,7 @@ writeGMT = function(lib,outfile){
     new_lib = lapply(new_lib,function(sub){
       return(c(sub,lib[[sub]]))
     })
-
+w
     #write lib to disk
     lapply(X = new_lib, FUN = function(x) {
       write(x, append = T, file = outfile, ncolumns = length(x), sep = "\t")

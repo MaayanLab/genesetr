@@ -11,7 +11,8 @@ Description: Gene set enrichment analysis is integral to functional
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: plyr (>= 1.8.4)
+Imports: plyr,
+    reshape2
 URL: http://github.com/maayanlab/genesetr
 BugReports: http://github.com/maayanlab/genesetr/issues
 Suggests: testthat
