@@ -44,7 +44,7 @@ toList = function(x){
       x = x[x$value>0,]
       x = data.frame(gene = x$gene, set_name = x$variable,stringsAsFactors = F)
     }
-    x = plyr::dlply(x,.(set_name),function(sub){return(sub$gene)})
+    x = plyr::dlply(x,plyr::.(set_name),function(sub){return(sub$gene)})
     return(x)
   }else if(genesetr::isList(x)){
     warning("Input x is already in list format. Returning x.")

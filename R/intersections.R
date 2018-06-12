@@ -34,8 +34,8 @@ pairwiseContingTables = function(lib1, lib2,background = NULL){
   x$set1 = as.character(x$set1)
   x$set2 = as.character(x$set2)
 
-  n1 = plyr::ddply(toLongDF(lib1),.(set_name),nrow)
-  n2 = plyr::ddply(toLongDF(lib2),.(set_name),nrow)
+  n1 = plyr::ddply(toLongDF(lib1),plyr::.(set_name),nrow)
+  n2 = plyr::ddply(toLongDF(lib2),plyr::.(set_name),nrow)
 
   x$len_set1 = as.integer(n1[match(x$set1,n1$set_name),2])
   x$len_set2 = as.integer(n2[match(x$set2,n2$set_name),2])

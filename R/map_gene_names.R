@@ -31,3 +31,15 @@ lib2HGNC = function(lib, untranslatable.rm = F){
   }
 
 }
+
+ensembl2HGNC = function(ids){
+  if(all(grep(ids,"ENST"))){
+
+  }else if(all(grep(ids,"ENSG"))){
+
+  }else if (all(grep(ids,"ENSP"))){
+
+  }else{
+
+  }
+}
