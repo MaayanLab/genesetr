@@ -13,7 +13,7 @@ queryChea3 = function(
 
   if(!all(libnames %in% names(genesetr::libs))){
     error(paste("The following libraries are unavailable:",
-      paste(setdiff(libnames,names(libs)),collapse = " "),
+      paste(setdiff(libnames,names(genesetr::libs)),collapse = " "),
       "These are the libraries available:",
       paste(names(genesetr::libs),collapse = " ")))}
 
@@ -27,7 +27,5 @@ queryChea3 = function(
   return(jsonlite::toJSON(results))
 }
 
-ptm <- proc.time()
-x = genesetr::queryChea3(example)
-proc.time() - ptm
+
 
