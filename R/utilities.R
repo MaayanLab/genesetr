@@ -18,3 +18,7 @@ read.ttsv = function(file, header=TRUE, sep="\t", ...) {
 removeFactors = function(df){
 
 }
+
+dfcols.tochar = function(df){
+  return(data.frame(lapply(df, as.character), stringsAsFactors=FALSE))
+}
