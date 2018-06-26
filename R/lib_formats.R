@@ -66,3 +66,11 @@ isList = function(x){
 isLongDF = function(x){
   return(inherits(x,"data.frame"))
 }
+
+removeSetWeights = function(x){
+  return(unlist(sapply(strsplit(x,","),"[",1)))
+}
+
+removeLibWeights = function(x){
+  return(lapply(x,removeSetWeights))
+}
