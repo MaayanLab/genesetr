@@ -1,10 +1,17 @@
 #map genes to HGNC-approved symbols
 
-HGNCapproved = function(genes, untranslatable.na = F){
-  message("Using HGNC 2018 approved symbols.")
+HGNCapproved = function(genes, untranslatable.na = F, weighted = F){
+
+  if(weighted){
+    scores = genesetr::getStringElement(genes,",",2)
+    genes = genesetr::getStringElement(genes,",",1)
+  }
   idx = match(genes,genesetr::hgnc_dict_2018$synonyms)
   genes[!is.na(idx)] = genesetr::hgnc_dict_2018[na.omit(idx),"approved"]
   if(untranslatable.na == T) genes[is.na(idx)] = NA
+  if(weighted){
+    genes = paste(genes,scores,sep = ",")
+  }
   return(genes)
 }
 
@@ -15,8 +22,11 @@ lib2HGNC = function(lib, untranslatable.na = F){
   message("Note gene symbols appearing in gene set names will not be mapped.")
 
   if(genesetr::isList(lib)){
+    weighted = isWeightedLib(lib)
     return(lapply(lib,function(set){
-      return(genesetr::HGNCapproved(set,untranslatable.na))
+      return(genesetr::HGNCapproved(set,
+        untranslatable.na,
+        weighted = weighted))
     }))
 
   }else if(genesetr::isMatrix(lib)){
@@ -47,3 +57,4 @@ ensembl2HGNC = function(ids, untranslatable.na = F){
   if(untranslatable.na) ids[is.na(hgnc_match)] = NA
   return(ids)
 }
+

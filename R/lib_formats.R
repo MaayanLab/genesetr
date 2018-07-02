@@ -74,3 +74,11 @@ removeSetWeights = function(x){
 removeLibWeights = function(x){
   return(lapply(x,removeSetWeights))
 }
+
+isWeightedLib = function(x){
+  if(genesetr::isList(x)){
+    return(all(unlist(lapply(x,function(set){
+      return(all(grepl(",",set)))
+    }))))
+  }
+}
