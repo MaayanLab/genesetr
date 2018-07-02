@@ -19,6 +19,10 @@ removeFactors = function(df){
 
 }
 
+getStringElement = function(string, delimiter, element){
+  return(unlist(sapply(strsplit(string,delimiter),"[",element)))
+}
+
 dfcols.tochar = function(df){
   return(data.frame(lapply(df, as.character), stringsAsFactors=FALSE))
 }
