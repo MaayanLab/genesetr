@@ -116,7 +116,7 @@ for(j in 1:sides){
 #' or = oddsRatio(a,b,c,d)
 oddsRatio = function(a,b,c,d){
   checkContingTableVals(a,b,c,d)
-  return(b*c/a*d)
+  return((a/b)/(c/d))
 }
 
 #' Jaccard Index for Multiple Contigency Tables
