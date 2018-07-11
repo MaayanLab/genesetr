@@ -52,11 +52,11 @@ removeEmptySets = function(x){
 }
 
 dupesWarn = function(){
-  warning("Set(s) in your library contain duplicated genes. Suggested: removeDupes().")
+  # warning("Set(s) in your library contain duplicated genes. Suggested: removeDupes().")
 }
 
 emptyWarn = function(){
-  warning("Your library contains empty set(s). Suggested: removeEmptySets().")
+  # warning("Your library contains empty set(s). Suggested: removeEmptySets().")
 }
 dfFormatWarn = function(){
   warning("Long DF format: first column should contain",
