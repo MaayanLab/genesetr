@@ -16,6 +16,7 @@ getLibInfo = function(lib){
 
 getLibGeneFreqs = function(lib){
   x = as.data.frame(table(unlist(lib)))
-  x$Var1 = as.character(x$Var1)
+  colnames(x)[1] = "gene"
+  x$gene = as.character(x$gene)
   return(x)
 }
