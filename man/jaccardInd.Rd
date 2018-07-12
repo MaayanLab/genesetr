@@ -19,7 +19,7 @@ jaccardInd(a, b, c, d)
 A vector of Jaccard indices j={j_{1}, j_{2},...,j_{n-1},j_{n}} where j_i corresponds to the jaccard index of t_i.
 }
 \description{
-Compute jaccard index for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+Computes a vector jaccard indices for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
 }
 \examples{
 T = \\{t_{1},t_{2},...,t_{n-1},t_{n}\\}, with each t_i of the form:

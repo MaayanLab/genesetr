@@ -7,7 +7,7 @@
 oddsRatio(a, b, c, d)
 }
 \arguments{
-\item{a}{A vector of values where a_{i} corresponds to t_{i}}
+\item{a}{A vector of values where \eqn{a_i} corresponds to \eqn{t_i}}
 
 \item{b}{A vector of values where b_{i} corresponds to t_{i}}
 
@@ -19,15 +19,22 @@ oddsRatio(a, b, c, d)
 A vector of odds ratios R={r_{1}, r_{2},...,r_{n-1},r_{n}} where r_i corresponds to the odds ratio of t_i.
 }
 \description{
-Compute odds ratios for n 2x2 contingency tables T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}
+Computes a vector of odds ratios given a set of contingency tables.
+}
+\details{
+Given a set of contingency tables T, where
+T = \{t_{1},t_{2},...,t_{n-1},t_{n}\}, with each t_i of the form:
+
+\tabular{cccccc}{
+ \tab setA \tab\tab ¬setA \tab \tab \cr
+ setB \tab a \tab\tab b \tab | \tab a + b\cr
+ ¬setB \tab c \tab\tab d \tab | \tab c + d\cr
+  \tab  a + c  \tab\tab  b + d  \tab | \tab a + b + c + d\cr
+  }
+
+return a vector of odds ratios R={r_{1}, r_{2},...,r_{n-1},r_{n}} where r_i corresponds to the odds ratio of t_i.
 }
 \examples{
-T = \\{t_{1},t_{2},...,t_{n-1},t_{n}\\}, with each t_i of the form:
-           setAn ¬setA
-       setB  a     b | a+b
-      ¬setB  c     d | c+d
-         ------------|-----
-            a+c   b+d| a+b+c+d
 
 Given three contingency tables:
      setA  ¬setA          setA  ¬setA         setB  ¬setB

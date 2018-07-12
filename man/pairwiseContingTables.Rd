@@ -27,7 +27,7 @@ A data frame with the following fields:
 }
 }
 \description{
-Contingency Tables
+2x2 contingency tables
 }
 \examples{
 #load example gene set libraries
