@@ -1,11 +1,10 @@
-#' All Pairwise Intersections Between Two Libraries
-#' Quickly computes the size of the intersection between all pairs of sets within a library.
+#' All Pairwise Comparisons Between Gene Sets of Two Libraries
 #'
 #' @param lib1 A library of gene sets in List, LongDF or Mat format.
 #' @param lib2 A library of gene sets in List, LongDF or Mat format.
 #' @param background The size of the "universe" of genes to use in building contingency tables from pairwise intersections of gene sets in the two libraries. Default is NULL-- background will be computed as the size of the union of unique genes in lib1 and lib2.
-#' @param method Metric by which to assess overlap. Options are "FET" and "OR".
-#' @return A data frame with all pairs of
+#' @param method Metric by which to assess gene set association. Options are "FET" and "OR".
+#' @return A data frame with all pairs of genesets and association metrics
 #' @examples
 #' #load example gene set libraries
 #' data("encode_example", "chea_example")

@@ -2,8 +2,7 @@
 % Please edit documentation in R/pipelines.R
 \name{pairwiseSetOverlap}
 \alias{pairwiseSetOverlap}
-\title{All Pairwise Intersections Between Two Libraries
-Quickly computes the size of the intersection between all pairs of sets within a library.}
+\title{All Pairwise Comparisons Between Gene Sets of Two Libraries}
 \usage{
 pairwiseSetOverlap(lib1, lib2, background = NULL, method = "FET")
 }
@@ -14,14 +13,13 @@ pairwiseSetOverlap(lib1, lib2, background = NULL, method = "FET")
 
 \item{background}{The size of the "universe" of genes to use in building contingency tables from pairwise intersections of gene sets in the two libraries. Default is NULL-- background will be computed as the size of the union of unique genes in lib1 and lib2.}
 
-\item{method}{Metric by which to assess overlap. Options are "FET" and "OR".}
+\item{method}{Metric by which to assess gene set association. Options are "FET" and "OR".}
 }
 \value{
-A data frame with all pairs of
+A data frame with all pairs of genesets and association metrics
 }
 \description{
-All Pairwise Intersections Between Two Libraries
-Quickly computes the size of the intersection between all pairs of sets within a library.
+All Pairwise Comparisons Between Gene Sets of Two Libraries
 }
 \examples{
 #load example gene set libraries
