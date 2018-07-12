@@ -67,14 +67,43 @@ isLongDF = function(x){
   return(inherits(x,"data.frame"))
 }
 
+#' Remove weights associated with a gene set.
+#'
+#' @param x A character vector representing a gene set
+#' @return Character vector with weights removed
+#'
+#' In genesetr, weights are represented by genename,weight
+#' e.g. FOXO1,0.564232
+#'
+#' @examples
+#' geneset = c("MYC,2.4", "FOXO1,5.2341", "BP1,0.43256")
+#' unweighted_geneset = removeSetWeights(geneset)
 removeSetWeights = function(x){
   return(unlist(sapply(strsplit(x,","),"[",1)))
 }
 
+#' Remove weights associated with gene set library.
+#'
+#' @param x Genesetr library object.
+#' @return library with weights removed
+#'
+#' Some genesetr functions do not accomodated weighted gene set libraries.
+#'
+#' @examples
+#' gmt = loadGMT('/user/libs/mylib.tsv')
+#' print(isWeightedLib)
 removeLibWeights = function(x){
   return(lapply(x,removeSetWeights))
 }
 
+#' Determine whether there are weights associated with genes.
+#'
+#' @param x Genesetr library object.
+#' @return boolean
+#'
+#' @examples
+#' gmt = loadGMT('/user/libs/mylib.tsv')
+#' print(isWeightedLib)
 isWeightedLib = function(x){
   if(genesetr::isList(x)){
     return(all(unlist(lapply(x,function(set){

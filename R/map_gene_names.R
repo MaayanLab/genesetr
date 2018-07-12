@@ -1,4 +1,16 @@
-#map genes to HGNC-approved symbols
+#' Determine whether there are weights associated with genes.
+#'
+#' @param genes a character vector of genes
+#' @param untranslatable.na boolean, default is false. If a gene does not have an HGNC
+#' mapping, then the function will return an NA for that gene
+#' @param weighted boolean representing whether genes have weights
+#' @return a character vector with genes mapped to approved HGNC symbols
+#'
+#' @examples
+#' geneset = c("FOXO1", "MYC", "GATA3", "BP1")
+#' mapped_geneset = HGNCapproved(geneset, untranslatable.na = T)
+#'
+
 
 HGNCapproved = function(genes, untranslatable.na = F, weighted = F){
 
@@ -15,8 +27,19 @@ HGNCapproved = function(genes, untranslatable.na = F, weighted = F){
   return(genes)
 }
 
-#map all genes in a library to HGNC-approved symbols
-#should change untranslatable.rm to untranslatable.na
+#' Map all genes in a genesetr library object to HGNC-approved symbols
+#'
+#' @param lib a genesetr library object
+#' @param untranslatable.na boolean, default is false. If a gene does not have an HGNC
+#' mapping, then the function will return an NA for that gene
+#'
+#' @return a genesetr library object with all genes mapped to approved HGNC symbols
+#'
+#' @examples
+#' lib = genesetr::chea_example
+#' mapped_lib = lib2HGNC(lib, untranslatable.na = T)
+#'
+
 lib2HGNC = function(lib, untranslatable.na = F){
   message("Using HGNC 2018 approved symbols.")
   message("Note gene symbols appearing in gene set names will not be mapped.")
@@ -42,6 +65,19 @@ lib2HGNC = function(lib, untranslatable.na = F){
   }
 
 }
+
+#' Maps Ensembl transcript and gene ids to HGNC-approved gene symbols
+#'
+#' @param ids a character vector of ensembl ids
+#' @param untranslatable.na boolean, default is false. If an id does not have an HGNC
+#' mapping, then the function will return an NA for that gene
+#'
+#' @return a character vector with all ids mapped to approved HGNC symbols
+#'
+#' @examples
+#' ids = genesetr::ensembl_ids$ensembl_gene_id[1:10]
+#' HGNC_symbols = ensembl2HGNC(ids, untranslatable.na = T)
+#'
 
 ensembl2HGNC = function(ids, untranslatable.na = F){
   #get everything to ensembl gene id
