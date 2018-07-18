@@ -18,6 +18,9 @@ pairwiseSetOverlap = function(lib1,lib2,background = NULL, method = "FET"){
   if("OR" %in% method){
     tab$OR = genesetr::oddsRatio(tab$a,tab$b,tab$c,tab$d)
   }
+  if("jaccard" %in% method){
+    tab$jaccard = genesetr::jaccardInd(tab$a,tab$b,tab$c,tab$d)
+  }
   return(tab)
 }
 
