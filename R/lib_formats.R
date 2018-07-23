@@ -22,7 +22,11 @@ toLongDF = function(x){
   if(isList(x)){
     x <- stack(x)
     x <- data.frame(lapply(x, as.character), stringsAsFactors=FALSE)
-    colnames(x) <- c("gene","set_name")
+    y <- reshape2::colsplit(x$values,",",names = c("gene","weight"))
+    x = data.frame(gene = y$gene,
+      set_name = x$ind,
+      weight = y$weight,
+      stringsAsFactors = F)
     return(x)
   }
   else if(isLongDF(x)){
