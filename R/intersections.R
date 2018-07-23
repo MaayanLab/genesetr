@@ -60,12 +60,13 @@ pairwiseContingTables = function(lib1, lib2,background = NULL){
 #' data("encode_example", "chea_example")
 #' intersects = pairwiseIntersects(encode_example, chea_example)
 pairwiseIntersects = function(lib1, lib2){
-  lib1 = toLongDF(lib1)
-  lib2 = toLongDF(lib2)
-  genes = intersect(getGenes(lib1),getGenes(lib2))
+  lib1 = genesetr::toLongDF(lib1)
+  lib2 = genesetr::toLongDF(lib2)
+  genes = intersect(genesetr::getGenes(lib1),genesetr::getGenes(lib2))
   lib1 = lib1[lib1$gene %in% genes,]
   lib2 = lib2[lib2$gene %in% genes,]
-  return(as.matrix(crossprod(table(lib1),table(lib2))))
+  return(as.matrix(crossprod(table(lib1[,c("gene","set_name"),drop = T]),
+    table(lib2[,c("gene","set_name"),drop = T]))))
 }
 
 #' Unique Genes in a Library
