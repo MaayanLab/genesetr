@@ -18,8 +18,8 @@ HGNCapproved = function(genes, untranslatable.na = F, weighted = F){
     scores = genesetr::getStringElement(genes,",",2)
     genes = genesetr::getStringElement(genes,",",1)
   }
-  idx = match(genes,genesetr::hgnc_dict_2018$synonyms)
-  genes[!is.na(idx)] = genesetr::hgnc_dict_2018[na.omit(idx),"approved"]
+  idx = match(genes,names(genesetr::hgnc_dict))
+  genes[!is.na(idx)] = genesetr::hgnc_dict[na.omit(idx)]
   if(untranslatable.na == T) genes[is.na(idx)] = NA
   if(weighted){
     genes = paste(genes,scores,sep = ",")
@@ -88,8 +88,8 @@ ensembl2HGNC = function(ids, untranslatable.na = F){
   ids[!is.na(p_match)] = genesetr::ensembl_ids[na.omit(p_match),"ensembl_gene_id"]
 
   #get everything to HGNC id
-  hgnc_match = match(ids,genesetr::hgnc_2018$Ensembl.ID.supplied.by.Ensembl.)
-  ids[!is.na(hgnc_match)] = genesetr::hgnc_2018[na.omit(hgnc_match), "Approved.Symbol"]
+  hgnc_match = match(ids,genesetr::hugo_dict$Ensembl.ID.supplied.by.Ensembl.)
+  ids[!is.na(hgnc_match)] = genesetr::hugo_dict[na.omit(hgnc_match), "Approved.Symbol"]
   if(untranslatable.na) ids[is.na(hgnc_match)] = NA
   return(ids)
 }
