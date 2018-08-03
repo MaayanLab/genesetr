@@ -2,7 +2,7 @@ getLibInfo = function(lib){
   lib = genesetr::toList(lib)
   lib = genesetr::removeLibWeights(lib)
   set_lengths = unlist(lapply(lib,length))
-  quart = as.numeric(quantile(lib_lengths))
+  quart = as.numeric(quantile(set_lengths))
   return(data.frame(
     n_gene_sets = length(lib),
     n_unique_genes = length(unique(unlist(lib))),
