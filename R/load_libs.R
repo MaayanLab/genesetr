@@ -28,7 +28,7 @@ loadGMT = function(filename){
 #' @examples
 #' gmt = loadMat("user/dir/my.gmt")
 loadMat = function(filename){
-return(read.table(filename, header = T, row.names = T,
+return(read.table(filename, header = T,
   stringsAsFactors=F, quote="", comment.char="", sep="\t"))
 }
 
