@@ -88,8 +88,8 @@ ensembl2HGNC = function(ids, untranslatable.na = F){
   ids[!is.na(p_match)] = genesetr::ensembl_ids[na.omit(p_match),"ensembl_gene_id"]
 
   #get everything to HGNC id
-  hgnc_match = match(ids,genesetr::hugo_dict$Ensembl.ID.supplied.by.Ensembl.)
-  ids[!is.na(hgnc_match)] = genesetr::hugo_dict[na.omit(hgnc_match), "Approved.Symbol"]
+  hgnc_match = match(ids,genesetr::hugo_df$Ensembl.ID.supplied.by.Ensembl.)
+  ids[!is.na(hgnc_match)] = genesetr::hugo_df[na.omit(hgnc_match), "Approved.Symbol"]
   if(untranslatable.na) ids[is.na(hgnc_match)] = NA
   return(ids)
 }
