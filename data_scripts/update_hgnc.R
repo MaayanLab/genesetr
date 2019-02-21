@@ -10,13 +10,13 @@ updateHGNCdict = function(){
     header = T)
 
   #build named vector to act as hash object
-  #(actual hash object of size required results in segfault)
+  #Note: actual hash object of size required results in segfault
 
-  syns = plyr::dlply(hugo_df,plyr::.(Approved.Symbol),function(row){
+  syns = plyr::dlply(hugo_df,plyr::.(Approved.symbol),function(row){
     keys = c(unlist(strsplit(row$Synonyms,",")),
-      unlist(strsplit(row$Previous.Symbols,",")),
-      unlist(strsplit(row$Accession.Numbers,",")),
-      unlist(strsplit(row$Ensembl.Gene.ID,",")),
+      unlist(strsplit(row$Previous.symbols,",")),
+      unlist(strsplit(row$Accession.numbers,",")),
+      unlist(strsplit(row$Ensembl.gene.ID,",")),
       unlist(strsplit(row$UniProt.ID.supplied.by.UniProt.,",")),
       unlist(strsplit(row$UCSC.ID.supplied.by.UCSC.,",")),
       unlist(strsplit(row$RefSeq.IDs,",")))
@@ -26,12 +26,15 @@ updateHGNCdict = function(){
   })
 
   hgnc_df = genesetr::dfcols.tochar(stack(syns))
+  colnames(hgnc_df) = c('syns','approved')
 
 
-  #ensure none of the keys (alternate symbols) are
+  #ensure none of the keys (alternate symbols/synonyms) are
   #identical to the values (approved symbols)
-  hgnc_dict = c(hgnc_df$ind,unique(hgnc_df$ind))
-  names(hgnc_dict) = c(hgnc_df$values,unique(hgnc_df$ind))
+  hgnc_df = hgnc_df[!hgnc_df$syns %in% hgnc_df$approved,]
+
+  hgnc_dict = c(hgnc_df$approved,unique(hgnc_df$approved))
+  names(hgnc_dict) = c(hgnc_df$syns,unique(hgnc_df$approved))
 
   devtools::use_data(hugo_df, overwrite = T)
   devtools::use_data(hgnc_dict, overwrite = T)
