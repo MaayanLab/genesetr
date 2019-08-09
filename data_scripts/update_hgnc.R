@@ -9,6 +9,15 @@ updateHGNCdict = function(){
   hugo_df = read.table(text = txt, stringsAsFactors=F, quote="", comment.char="", sep="\t",
     header = T)
 
+  #uniprot data
+  uniprot_url = "ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/idmapping/by_organism/HUMAN_9606_idmapping_selected.tab.gz"
+  uniprot_temp_dir = "./uniprot_tempfile"
+  dir.create(uniprot_temp_dir)
+  download.file(uniprot_url,"./uniprot_tempfile/HUMAN_9606_idmapping_selected.tab.gz")
+  uniprot = read.table("./uniprot_tempfile/HUMAN_9606_idmapping_selected.tab.gz", sep = "\t", quote = "", comment.char = "", stringsAsFactors = F)
+
+  hugo_df$uniprot_symbol = gsub("_HUMAN","",uniprot[match(hugo_df$Ensembl.ID.supplied.by.Ensembl.,uniprot$V19),"V2"])
+
   #build named vector to act as hash object
   #Note: actual hash object of size required results in segfault
 
@@ -19,7 +28,8 @@ updateHGNCdict = function(){
       unlist(strsplit(row$Ensembl.gene.ID,",")),
       unlist(strsplit(row$UniProt.ID.supplied.by.UniProt.,",")),
       unlist(strsplit(row$UCSC.ID.supplied.by.UCSC.,",")),
-      unlist(strsplit(row$RefSeq.IDs,",")))
+      unlist(strsplit(row$RefSeq.IDs,",")),
+      unlist(strsplit(row$uniprot_symbol,",")))
     keys = gsub(" ","",keys)
     keys = unique(keys)
     return(keys)
@@ -32,11 +42,13 @@ updateHGNCdict = function(){
   #ensure none of the keys (alternate symbols/synonyms) are
   #identical to the values (approved symbols)
   hgnc_df = hgnc_df[!hgnc_df$syns %in% hgnc_df$approved,]
+  hgnc_df = hgnc_df[!duplicated(hgnc_df$syns),]
 
   hgnc_dict = c(hgnc_df$approved,unique(hgnc_df$approved))
   names(hgnc_dict) = c(hgnc_df$syns,unique(hgnc_df$approved))
 
-  devtools::use_data(hugo_df, overwrite = T)
-  devtools::use_data(hgnc_dict, overwrite = T)
+  usethis::use_data(hugo_df, overwrite = T)
+  usethis::use_data(hgnc_dict, overwrite = T)
+  unlink("./uniprot_tempfile/")
 
 }
