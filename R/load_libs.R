@@ -13,7 +13,7 @@
 loadGMT = function(filename){
   lib = genesetr::read.ttsv(filename)
   lib = lapply(lib,function(y) return(y = as.character(y[!is.na(y)])))
-  names(lib) = toupper(gsub(" ","",gsub("-","",gsub("\\.","",names(lib)))))
+  names(lib) = toupper(gsub(" ","",gsub("-","",names(lib))))
   genesetr::checkLib(lib)
   return(lib)
 }
